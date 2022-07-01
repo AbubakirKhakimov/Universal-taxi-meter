@@ -10,7 +10,9 @@
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2845" />
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/drawable/ic_location_arrow.xml" value="0.2845" />
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/layout/fragment_history.xml" value="0.3625" />
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/layout/fragment_home.xml" value="0.3625" />
+        <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/layout/fragment_settings.xml" value="0.3625" />
       </map>
     </option>
   </component>

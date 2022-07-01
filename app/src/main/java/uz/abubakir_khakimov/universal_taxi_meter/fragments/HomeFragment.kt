@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,7 +30,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, LocationManagerCallBack, Ti
     private lateinit var binding: FragmentHomeBinding
     private lateinit var locationManager: LocationManager
     private lateinit var timerManager: TimerManager
-    private lateinit var googleMap: GoogleMap
+    private var googleMap: GoogleMap? = null
     private var marker: Marker? = null
     private var starterState = false
     private var locationAutoMove = true
@@ -41,9 +42,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback, LocationManagerCallBack, Ti
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        this.googleMap = googleMap
-        moveLastDeviceLocation()
-        locationManager.runRealtimeLocation(this)
+        if (this.googleMap == null) {
+            this.googleMap = googleMap
+            moveLastDeviceLocation()
+            locationManager.runRealtimeLocation(this)
+        }else{
+            this.googleMap = googleMap
+        }
 
         googleMap.setOnCameraMoveStartedListener { i ->
             if (i == GoogleMap.OnCameraMoveStartedListener.REASON_GESTURE && locationAutoMove) {
@@ -63,7 +68,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, LocationManagerCallBack, Ti
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initMapCallBack()
+        updateStarterButton()
 
         binding.starter.setOnClickListener {
             locationAutoMove = true
@@ -73,6 +80,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, LocationManagerCallBack, Ti
             }else{
                 starterButtonStartClick()
             }
+            updateStarterButton()
         }
 
         binding.myLocation.setOnClickListener{
@@ -87,6 +95,24 @@ class HomeFragment : Fragment(), OnMapReadyCallback, LocationManagerCallBack, Ti
             }
         }
 
+        binding.settings.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+        }
+
+        binding.history.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_historyFragment)
+        }
+
+    }
+
+    private fun updateStarterButton(){
+        if (starterState){
+            binding.starter.text = getString(R.string.stop)
+            binding.starter.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.red))
+        }else{
+            binding.starter.text = getString(R.string.start)
+            binding.starter.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.colorPrimary))
+        }
     }
 
     private fun starterButtonStartClick(){
@@ -97,8 +123,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, LocationManagerCallBack, Ti
         }
         marker?.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon_tilt))
 
-        binding.starter.text = getString(R.string.stop)
-        binding.starter.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.red))
         starterState = true
     }
 
@@ -110,8 +134,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, LocationManagerCallBack, Ti
         }
         marker?.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon))
 
-        binding.starter.text = getString(R.string.start)
-        binding.starter.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.colorPrimary))
         binding.distance.text = "0 km"
         binding.timer.text = "00:00:00"
         starterState = false
@@ -135,7 +157,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, LocationManagerCallBack, Ti
                     .bearing(location.bearing)
                     .zoom(20f)
                     .build()
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+            googleMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
     }
 
@@ -145,7 +167,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, LocationManagerCallBack, Ti
                 CameraPosition.Builder().target(LatLng(location.latitude, location.longitude))
                     .zoom(18f)
                     .build()
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+            googleMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
     }
 
@@ -153,7 +175,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, LocationManagerCallBack, Ti
         val latLng = LatLng(location.latitude, location.longitude)
 
         if (marker == null) {
-            marker = googleMap.addMarker(
+            marker = googleMap?.addMarker(
                 MarkerOptions()
                     .position(latLng)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon))
@@ -188,7 +210,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, LocationManagerCallBack, Ti
     private fun moveLastDeviceLocation(){
         val latLng: LatLng? = Hawk.get("lastDeviceLocation", null)
         if (latLng != null) {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18f))
+            googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18f))
         }
     }
 
