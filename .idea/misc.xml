@@ -7,12 +7,18 @@
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/drawable/ic_baseline_history_24.xml" value="0.2845" />
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.2845" />
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/drawable/ic_current_location.xml" value="0.2845" />
+        <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/drawable/ic_daily.xml" value="0.2845" />
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2845" />
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/drawable/ic_location_arrow.xml" value="0.2845" />
+        <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/drawable/ic_price.xml" value="0.2845" />
+        <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/drawable/ic_time.xml" value="0.2845" />
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/layout/clear_history_dialog_layout.xml" value="0.3614583333333333" />
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/layout/fragment_history.xml" value="0.3625" />
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/layout/fragment_home.xml" value="0.3625" />
         <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/layout/fragment_settings.xml" value="0.3625" />
+        <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/layout/history_date_item_layout.xml" value="0.3614583333333333" />
+        <entry key="..\:/PROEKT/Android Studio/Universal taxi meter/app/src/main/res/layout/history_route_item_layout.xml" value="0.3625" />
       </map>
     </option>
   </component>
